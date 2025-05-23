@@ -1,0 +1,37 @@
+import numpy as np
+from scipy.optimize import minimize
+
+#defining our Objective function
+def objective(x):
+    A = x[0]
+    B = x[1]
+    
+    return -(5000*B-2000*A)
+
+def constraint(x):
+    return x[0]+x[1]-200
+
+
+b1 = [100, 200]     #bounds on A: 200 >= A >= 100
+b2 = [80, 170]      #bounds on B: 170 >= B >= 80
+
+bnds = (b1,b2)
+
+#defining Inequality type of constraint.
+con = {'type': 'ineq', 'fun': constraint}
+# passing any guess value for A and B into minimize fuinction.
+Xguess = [100,100]
+
+sol = minimize(objective, Xguess, method = 'SLSQP', options={'disp':True}, bounds = bnds, constraints = con)
+print('About solution from Optimize.minnimize: \n' ,sol)
+
+
+profit = -sol.fun   #converting back to positive answer
+CarA = sol.x[0]     # number of car A models
+CarB = sol.x[1]     # number of car B models
+
+
+print ('\n\n\nPrinting the Results: \n\n\n')
+print('maximum Profit Gained: $', profit)
+print('\n Number of Model A Cars: ',CarA)
+print('\n Number of Model B Cars: ',CarB)
