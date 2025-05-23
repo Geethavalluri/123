@@ -1,0 +1,52 @@
+import matplotlib.pyplot 
+from matplotlib.pyplot import *
+import numpy
+from numpy import arange
+
+figure()
+A = arange(-100, 220, 10)
+B = arange(-100, 220, 10)
+
+# constraint equation
+
+B1 = 200.0 - A
+
+
+
+xlim = (-100, 220)
+ylim= (-100, 220)
+hlines(0, -100, 220, color = 'k')
+vlines(0, -100, 220, color = 'k')
+grid(True)
+
+xlabel('X-axis')
+ylabel('Y-axis')
+
+#Plotting graph
+
+plot(A, B1, color = 'b')
+axhline(y = 80, color = 'r')
+axhline(y = 170, color = 'm')
+axvline(x = 200, color = 'b')
+axvline(x = 100, color = 'g')
+title('objective function: z = 5000B - 2000A with following constarints')
+legend(['A+B>=200','200>=A>=100','170>=B>=80'])
+
+# get the co-ordinates of intersection points by mere visualisation
+A = [200.0,100.0, 100.0, 120.0,200.0]
+B = [170.0, 170.0, 100.0, 80.0, 80.0]
+fill(A,B,'g+')
+
+
+show()
+
+#Getting Solution
+checker = 0
+for i,j in zip(A,B):
+    print('\n calculating for point: A = {0:f} and B = {1:f}' .format(i,j))
+    print('solution for z = ', 5000*j-2000*i)
+    if(checker <= (5000*j-2000*i)):
+       checker = (5000*j-2000*i)
+       X,Y = i,j
+       
+print('\n the maximum profit z = ${0:f} @ A = {1:f} and B = {2:f}' .format(checker,X,Y))
